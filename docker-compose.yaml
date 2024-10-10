@@ -2,9 +2,9 @@ services:
   reservations:
     build:
       context: .
-      dockerfile: './apps/reservations/Dockerfile'
+      dockerfile: ./apps/reservations/Dockerfile
       target: development
-    command: yarn start:dev reservations
+    command: yarn run start:dev reservations
     env_file:
       - ./apps/reservations/.env
     ports:
@@ -14,9 +14,9 @@ services:
   auth:
     build:
       context: .
-      dockerfile: './apps/auth/Dockerfile'
+      dockerfile: ./apps/auth/Dockerfile
       target: development
-    command: yarn start:dev auth
+    command: yarn run start:dev auth
     env_file:
       - ./apps/auth/.env
     ports:
