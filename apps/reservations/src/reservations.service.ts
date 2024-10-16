@@ -4,6 +4,7 @@ import { UpdateReservationDto } from './dto/update-reservation.dto';
 import { ReservationsRepository } from './reservations.repository';
 import { PAYMENT_SERVICE } from '@app/common';
 import { ClientProxy } from '@nestjs/microservices';
+import { map } from 'rxjs';
 // import { map } from 'rxjs';
 
 @Injectable()
@@ -14,17 +15,18 @@ export class ReservationsService {
   ) {}
 
   async create(createReservationDto: CreateReservationDto, userId: string) {
-    // return this.paymentService
-    //   .send('create_charge', createReservationDto.charge)
-    //   .pipe(
-    //     map(() => {
-    return this.reservationRepository.create({
-      ...createReservationDto,
-      timestamp: new Date(),
-      userId,
-    });
-    //   }),
-    // );
+    return this.paymentService
+      .send('create_charge', createReservationDto.charge)
+      .pipe(
+        map((res) => {
+          return this.reservationRepository.create({
+            ...createReservationDto,
+            timestamp: new Date(),
+            userId,
+            invoiceId: res.id,
+          });
+        }),
+      );
   }
 
   async findAll() {
