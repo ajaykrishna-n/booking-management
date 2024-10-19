@@ -5,12 +5,16 @@ WORKDIR /usr/src/app
 
 COPY package.json ./
 COPY yarn.lock ./
+COPY tsconfig.json tsconfig.json
 
 # RUN npm i -g yarn
 
 RUN yarn install
 
-COPY . .
+COPY apps/auth apps/auth
+COPY libs libs
+
+RUN cd apps/auth && yarn install
 
 RUN yarn run build
 

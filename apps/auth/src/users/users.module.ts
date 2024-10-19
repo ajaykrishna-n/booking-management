@@ -2,7 +2,7 @@ import { Module } from '@nestjs/common';
 import { UsersController } from './users.controller';
 import { UsersService } from './users.service';
 import { DatabaseModule, LoggerModule } from '@app/common';
-import { UserDocument, UsersSchema } from './models/users.schema';
+import { UserDocument, UsersSchema } from '@app/common';
 import { UsersRepository } from './users.repository';
 
 @Module({
