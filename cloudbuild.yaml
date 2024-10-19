@@ -57,3 +57,5 @@ steps:
   - name: 'gcr.io/cloud-builders/docker'
     args:
       ['push', 'asia-south1-docker.pkg.dev/booking-management-438812/payments/production']
+options:
+  logging: CLOUD_LOGGING_ONLY
