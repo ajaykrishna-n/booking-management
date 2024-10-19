@@ -6,7 +6,7 @@ steps:
         '-t',
         'asia-south1-docker.pkg.dev/booking-management-438812/reservations/production',
         '-f',
-        'app/reservations/Dockerfile',
+        'apps/reservations/Dockerfile',
         '.'
       ]
   - name: 'gcr.io/cloud-builders/docker'
@@ -21,7 +21,7 @@ steps:
         '-t',
         'asia-south1-docker.pkg.dev/booking-management-438812/auth/production',
         '-f',
-        'app/auth/Dockerfile',
+        'apps/auth/Dockerfile',
         '.'
       ]
   - name: 'gcr.io/cloud-builders/docker'
@@ -36,7 +36,7 @@ steps:
         '-t',
         'asia-south1-docker.pkg.dev/booking-management-438812/notifications/production',
         '-f',
-        'app/notifications/Dockerfile',
+        'apps/notifications/Dockerfile',
         '.'
       ]
   - name: 'gcr.io/cloud-builders/docker'
@@ -51,7 +51,7 @@ steps:
         '-t',
         'asia-south1-docker.pkg.dev/booking-management-438812/payments/production',
         '-f',
-        'app/payments/Dockerfile',
+        'apps/payments/Dockerfile',
         '.'
       ]
   - name: 'gcr.io/cloud-builders/docker'
