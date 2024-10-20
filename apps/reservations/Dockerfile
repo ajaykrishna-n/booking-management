@@ -1,33 +1,35 @@
-FROM node:18-alpine AS development
+FROM node:alpine As development
 
 WORKDIR /usr/src/app
 
 COPY package.json ./
-COPY yarn.lock ./
+COPY pnpm-lock.yaml ./
 COPY tsconfig.json tsconfig.json
 COPY nest-cli.json nest-cli.json
 
-RUN yarn install
+RUN npm install -g pnpm
+
+RUN pnpm install
 
 COPY apps/reservations apps/reservations
 COPY libs libs
 
-RUN yarn run build
+RUN pnpm run build reservations
 
-FROM node:18-alpine AS production
+FROM node:alpine as production
 
-ARG NODE_ENV=production reservations
+ARG NODE_ENV=production
 ENV NODE_ENV=${NODE_ENV}
 
 WORKDIR /usr/src/app
 
 COPY package.json ./
-COPY yarn.lock ./
+COPY pnpm-lock.yaml ./
 
+RUN npm install -g pnpm
 
-# RUN npm i -g yarn
-RUN yarn install --production
+RUN pnpm install --prod
 
 COPY --from=development /usr/src/app/dist ./dist
 
-CMD [ "node", "dist/apps/reservations/main" ]
+CMD ["node", "dist/apps/reservations/main"]
