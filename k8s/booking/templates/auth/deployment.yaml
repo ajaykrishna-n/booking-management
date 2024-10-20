@@ -15,12 +15,25 @@ spec:
         app: auth
     spec:
       containers:
-      - image: asia-south1-docker.pkg.dev/booking-management-438812/auth/production
-        name: auth
-        env:
-        - name: MONGODB_URI
-          valueFrom:
-            secretKeyRef:
-              name: mongodb
-              key: connectionString
-
+        - image: asia-south1-docker.pkg.dev/booking-management-438812/auth/production
+          name: auth
+          env:
+            - name: MONGODB_URI
+              valueFrom:
+                secretKeyRef:
+                  name: mongodb
+                  key: connectionString
+            - name: JWT_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: jwt
+                  key: jwtSecret
+            - name: JWT_EXPIRATION
+              value: '3600'
+            - name: HTTP_PORT
+              value: '3003'
+            - name: TCP_PORT
+              value: '3002'
+          ports:
+            - containerPort: 3002
+            - containerPort: 3003
